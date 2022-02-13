@@ -1,13 +1,11 @@
 const express = require("express");
 var favicon = require("serve-favicon");
 var path = require("path");
-const res = require("express/lib/response");
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
-app.use("/healtcheck", require("./routes/healthcheck.routes"));
-//app.use(favocon(path.join(__dirname, 'public', 'favicon.ico)))
+app.use("/healthcheck", require("./routes/healthcheck.routes"));
 app.use(express.static("public"));
 
 app.get("/", function (req, res) {
@@ -15,5 +13,5 @@ app.get("/", function (req, res) {
 });
 
 app.listen(PORT, function () {
-  console.log(`Server started on port ${PORT}`);
+  console.log("Server started on port ${PORT}");
 });

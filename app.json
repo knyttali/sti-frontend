@@ -1,9 +1,8 @@
 {
-    "name": "sti-frontend",
-    "description": "Javascript Frontend",
-    "repository": "https://github.com/knyttali/sti-frontend",
-    "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/main/public/node.svg",
-    "keywords": ["node", "express", "heroku"],
-    "image": "heroku/nodejs"
-
+  "name": "sti-frontend",
+  "description": "Javascript Frontend",
+  "repository": "https://github.com/knyttali/sti-frontend",
+  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/main/public/node.svg",
+  "keywords": ["node", "express", "heroku"],
+  "image": "heroku/nodejs"
 }
