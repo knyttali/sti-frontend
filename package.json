@@ -1,16 +1,16 @@
 {
   "name": "sti-frontend",
   "version": "1.0.0",
-  "description": "STI Frontend App",
+  "description": "",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/knyttali/sti-frontend.git"
+    "url": "https://github.com/knyttali/sti-frontend.git"
   },
-  "author": "Amanda Andrae",
+  "author": "Anna Karlsson",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/knyttali/sti-frontend/issues"

@@ -1,7 +1,7 @@
 {
   "name": "sti-frontend",
   "description": "Javascript Frontend",
-  "repository": "https://github.com/knyttali/sti-frontend",
+  "repository": "https://github.com/knyttali/sti-frontend.git",
   "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/main/public/node.svg",
   "keywords": ["node", "express", "heroku"],
   "image": "heroku/nodejs"
