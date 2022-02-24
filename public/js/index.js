@@ -1,8 +1,8 @@
 function age(){
     var xhr = new XMLHttpRequest()
     //xhr.open("Get", "/js/data.json")
-    //xhr.open("Get", "http://localhost:3001/football")
-    xhr.open("Get", "https://amandaandrae-backend.herokuapp.com/football")
+    xhr.open("Get", "http://localhost:3001/football")
+    //xhr.open("Get", "https://amandaandrae-backend.herokuapp.com/football")
     xhr.onload = function(){
         var data = JSON.parse(this.response)
         createTable(data)
