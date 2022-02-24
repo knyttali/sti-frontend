@@ -1,74 +1,76 @@
-function age(){
-    var xhr = new XMLHttpRequest()
-    //xhr.open("Get", "/js/data.json")
-    xhr.open("Get", "http://localhost:3001/football")
-    //xhr.open("Get", "https://amandaandrae-backend.herokuapp.com/football")
-    xhr.onload = function(){
-        var data = JSON.parse(this.response)
-        createTable(data)
-    }
-    xhr.send()
+const container = document.querySelector(".container"); //ska grabba tag i container-klassen i html dokumentet
+const seats = document.querySelectorAll(".row .seat:not(.occupied)");
+const count = document.getElementById("count");
+const total = document.getElementById("total");
+const movieSelect = document.getElementById("movie");
+
+populateUI();
+
+let ticketPrice = +movieSelect.value;
+
+// Save selected movie index and price
+function setMovieData(movieIndex, moviePrice){
+  localStorage.setItem('selectedMovieIndex', movieIndex);
+  localStorage.setItem('selectedMoviePrice', moviePrice);
 }
 
-var anElement = document.getElementById("app");
-//create button function
-const createButton = (text = 'No text') => {
-    const btn = document.createElement('button');
-    btn.innerText = text;
-    document.body.appendChild(btn);
-    return btn; 
-}
-const button = createButton('Hämta tabell');
+//update total and count
+function updateSelectedCount() {
+  const selectedSeats = document.querySelectorAll('.row .seat.selected');
 
 
-//skapa nytt element
-var anElement2 = document.createElement("strong");
-anElement.appendChild(anElement2);
+  //copy selected seats, map through array, return a new array indexes
+  const seatsIndex = [...selectedSeats].map(seat => [...seats].indexOf(seat));
 
+  //LOCAL STORAGE detta bör jag ändra 
+  localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex));
 
-button.addEventListener('click', () => {
-    age();
-})
+  const selectedSeatsCount = selectedSeats.length;
 
-function createTable(data){
-	var appElement = document.getElementById("app")
-    var aTable = document.createElement("table")
-    appElement.appendChild(aTable)
-    aTable.appendChild(createRow(data[0].name, data[0].points))
-    aTable.appendChild(createRow(data[1].name, data[1].points))
-    aTable.appendChild(createRow(data[2].name, data[2].points))
-    aTable.appendChild(createRow(data[3].name, data[3].points))
+  count.innerText = selectedSeatsCount; 
+  total.innerText = selectedSeatsCount * ticketPrice;
 }
 
-function createRow(name, points){
-    var aRow = document.createElement("tr");
-    aRow.appendChild(createCell(name));
-    aRow.appendChild(createCell(points));
-    return aRow;
+//get data from local storage and populate UI
+function populateUI(){
+  const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats'));
+
+  if(selectedSeats !== null && selectedSeats.length > 0){
+    seats.forEach((seat, index) => {
+      if(selectedSeats.indexOf(index) > -1){
+        seat.classList.add('selected');
+      }
+    });
+  }
+
+
+  const selectedMovieIndex = localStorage.getItem('selectedMovieIndex');
+
+  if(selectedMovieIndex !== null){
+    movieSelect.selectedIndex = selectedMovieIndex;
+  }
 }
 
-function createCell(content){
-    var aCell = document.createElement("td");
-    aCell.innerHTML = content;
-    return aCell;
-}
+//movie select event
+movieSelect.addEventListener('change', e => {
+    ticketPrice = +e.target.value;
+    setMovieData(e.target.selectedIndex, e.target.value); //save local storage
+    updateSelectedCount();
+});
 
-function createCellWithImage(url){
-    var aCell = document.createElement("td")
-    var anImage = document.createElement("img")
-    anImage.src = url
-    anImage.classList.add("logo")
-    aCell.appendChild(anImage)
-    return aCell;
-}
+//seat click event
+container.addEventListener("click", e => {
+  if (
+    e.target.classList.contains("seat") &&
+    !e.target.classList.contains("occupied")
+  ) {
+    e.target.classList.toggle("selected"); //toggle så den blir blå sen vit
 
-age()
+    updateSelectedCount();
+  }
+});
 
 
-/* 
-document.getElementById()
-document.createElement()
-anElement.innerHTML
-anElement.outerHTML
-anElement.appendChild
- */
+
+//initial count and total set 
+updateSelectedCount();
